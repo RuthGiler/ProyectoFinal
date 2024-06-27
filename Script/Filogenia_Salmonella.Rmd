@@ -1,0 +1,84 @@
+---
+title: "Salmonella"
+output: html_document
+date: "2024-06-27"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+**Salmonella entérica serovar Dublin - Filogenia**
+
+
+Establezco el directorio de trabajo
+```{r}
+setwd("/cloud/project/Ruth")
+```
+
+Obtengo la dirección del directorio
+
+```{r}
+getwd()
+```
+Instalo los paquetes que se van a utilizar
+
+```{r}
+install.packages("ggtree")
+install.packages("ape")
+install.packages('coda')
+install.packages('phytools')
+install.packages('BAMMtools')
+install.packages("maps")
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("ggtree")
+```
+
+Confirmo la instalación de los paquetes
+```{r}
+library(ape)
+library(ggtree)
+library(coda)
+library(phytools)
+library(BAMMtools)
+library(maps)
+```
+
+Cargo el arbol filogenético de la Salmonella
+
+```{r}
+tree <- read.tree("Filogenia_Salmonella.tre")
+write.tree(tree, file = "Filogenia_Salmonella.tre")
+plot(tree, main = "Filogenia_Salmonella")
+```
+
+Zoom para la rama de la filogenia correspondiente a Salmonella enterica subsp. 
+
+```{r}
+zoom(tree, grep("Salmonella enterica subsp", tree$tip.label), cex = 0.3)
+```
+
+Encuentro el nodo de ancestro para el clado de Salmonella enterica serovar Dublin.
+```{r}
+MRCA <- getMRCA(tree, tip = c("Salmonella_enterica_subsp._enterica_serovar_Dublin_str._UC16_ott275553", "Salmonella_enterica_subsp._enterica_serovar_Dublin_str._0773_ott7034188"))
+MRCA
+```
+Extraigo el nodo de interés
+
+```{r}
+treenode <- extract.clade(tree, node = 745)
+plot(treenode, cex = 0.8)
+```
+
+
+
+
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

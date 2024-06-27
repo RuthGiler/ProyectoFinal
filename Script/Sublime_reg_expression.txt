@@ -1,0 +1,8 @@
+Script que se usó en Sublime para el filtrado de texto. 
+
+Find: \s\w+\s\w+\s\w+.\s\w+\s\w+\s\w+\s\w+\s\w+,\s\w+\s\w+\s\w+\s\w+
+
+Replace with: 
+
+
+Al aplciarlo se obtiene unicamente el codigo del fragmento en la secuencia que codifica una proteina expecífica.
